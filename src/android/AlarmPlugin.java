@@ -1,4 +1,4 @@
-package com.uniclau.alarmplugin;
+package com.kk.alarmplugin;
 
 import java.text.SimpleDateFormat;
 
@@ -55,7 +55,12 @@ public class AlarmPlugin extends CordovaPlugin {
 					callbackContext.error("The date is in the past");
 					return true;
 				}
+
+                               String alarmid = args.getString(1);
+				String message = args.getString(2);
 				
+				System.out.println("alarmid == = " +alarmid);
+		                System.out.println("message == = " +message);
 				SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this.cordova.getActivity());
 				SharedPreferences.Editor editor = settings.edit();
 	            editor.putLong("AlarmPlugin.AlarmDate", aDate.getTime()); //$NON-NLS-1$
@@ -66,14 +71,31 @@ public class AlarmPlugin extends CordovaPlugin {
 				PendingIntent alarmIntent;     
 				Intent intent = new Intent(this.cordova.getActivity(), AlarmReceiver.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				alarmIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), 0, intent, 0);
+				intent.putExtra("AlarmID", alarmid);
+				intent.putExtra("AlarmMessage", message);
+				alarmIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), Integer.parseInt(alarmid), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 				
 				alarmMgr.cancel(alarmIntent);
-				alarmMgr.set(AlarmManager.RTC_WAKEUP,  aDate.getTime(), alarmIntent);
-				
-				callbackContext.success("Alarm set at: " +sdf.format(aDate));
+				// alarmMgr.set(AlarmManager.RTC_WAKEUP,  aDate.getTime(), alarmIntent);
+				alarmMgr.setRepeating (AlarmManager.RTC_WAKEUP,  aDate.getTime(),AlarmManager.INTERVAL_DAY, alarmIntent);
+				callbackContext.success("Alarm set at: " +sdf.format(aDate)+" with Id: "+alarmid);
 			    return true; 		
 			}
+			
+			if ("stopAlarm".equals(action)) {
+				String alarmid = args.getString(0);
+		        	System.out.println("alarmid == = " +alarmid);
+				AlarmManager alarmMgr = (AlarmManager)(this.cordova.getActivity().getSystemService(Context.ALARM_SERVICE));
+				PendingIntent alarmIntent;     
+				Intent intent = new Intent(this.cordova.getActivity(), AlarmReceiver.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				alarmIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), Integer.parseInt(alarmid), intent, 0);
+				alarmMgr.cancel(alarmIntent);
+				callbackContext.success("Alarm stopped of id: "+alarmid);
+				
+			    return true; 		
+			}
+			
 			return false;		
 		} catch(Exception e) {
 		    System.err.println("Exception: " + e.getMessage());
