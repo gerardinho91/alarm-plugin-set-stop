@@ -1,4 +1,4 @@
-package com.uniclau.alarmplugin;
+package com.kk.alarmplugin;
 
 import android.app.KeyguardManager;
 import android.app.KeyguardManager.KeyguardLock;
