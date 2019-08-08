@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-           id="com.uniclau.alarmplugin"
+           id="com.gs91.alarmpluginsetstop"
       version="0.1.0">
     <name>Alarm</name>
-    <description>Sample Alarm Plugin</description>
+    <description>Sample Alarm Plugin3</description>
     <license>MIT</license>
     <keywords>phonegap,alarm</keywords>
 
@@ -17,7 +17,7 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="AlarmPlugin">
-                <param name="android-package" value="com.uniclau.alarmplugin.AlarmPlugin"/>
+                <param name="android-package" value="com.gs91.alarmpluginsetstop.AlarmPlugin"/>
             </feature>
         </config-file>
 
@@ -29,9 +29,18 @@
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <receiver android:name="com.uniclau.alarmplugin.AlarmReceiver" android:process=":remote">
+            <activity
+             android:name="com.gs91.alarmpluginsetstop.AlarmPopUp"
+             android:excludeFromRecents="true"
+             android:label="TestAlarm"
+             android:launchMode="singleInstance"
+             android:screenOrientation="portrait"
+             android:taskAffinity=""
+             android:theme="@android:style/Theme.Dialog" >
+            </activity>
+            <receiver android:name="com.kk.alarmplugin.AlarmReceiver" android:process=":remote">
             </receiver>
-            <receiver android:name="com.uniclau.alarmplugin.AlarmBoot">
+            <receiver android:name="com.kk.alarmplugin.AlarmBoot">
                 <intent-filter>
                     <action android:name="android.intent.action.BOOT_COMPLETED"></action>
                 </intent-filter>
@@ -41,15 +50,15 @@
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
             <intent-filter>
-                <action android:name="com.uniclau.alarmplugin.ALARM" />
+                <action android:name="com.kk.alarmplugin.ALARM" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </config-file>
 
 
 
-        <source-file src="src/android/AlarmPlugin.java" target-dir="src/com/uniclau/alarmplugin" />      
-        <source-file src="src/android/AlarmBoot.java" target-dir="src/com/uniclau/alarmplugin" />      
-        <source-file src="src/android/AlarmReceiver.java" target-dir="src/com/uniclau/alarmplugin" />      
+        <source-file src="src/android/AlarmPlugin.java" target-dir="src/com/gs91/alarmpluginsetstop" />      
+        <source-file src="src/android/AlarmBoot.java" target-dir="src/com/gs91/alarmpluginsetstop" />      
+        <source-file src="src/android/AlarmReceiver.java" target-dir="src/com/gs91/alarmpluginsetstop" />  
      </platform>          
 </plugin>
