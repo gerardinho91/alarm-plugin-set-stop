@@ -1,5 +1,5 @@
 package com.gs91.alarmpluginsetstop;
-
+ 
 import android.app.KeyguardManager;
 import android.app.KeyguardManager.KeyguardLock;
 import android.content.BroadcastReceiver;
@@ -29,11 +29,11 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(2000);
-   
-        intent = new Intent();
-        intent.setAction("com.uniclau.alarmplugin.ALARM");
+        
+		intent = new Intent();
+        intent.setAction("com.gs91.alarmpluginsetstop.ALARM");
         intent.setPackage(context.getPackageName());
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
-}
+} 
