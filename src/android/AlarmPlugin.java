@@ -74,7 +74,22 @@ public class AlarmPlugin extends CordovaPlugin {
 				callbackContext.success("Alarm set at: " +sdf.format(aDate));
 			    return true; 		
 			}
-			return false;		
+			
+			if ("stopAlarm".equals(action)) {
+				String alarmid = "0";
+				AlarmManager alarmMgr = (AlarmManager)(this.cordova.getActivity().getSystemService(Context.ALARM_SERVICE));
+				PendingIntent alarmIntent;     
+				Intent intent = new Intent(this.cordova.getActivity(), AlarmReceiver.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				alarmIntent = PendingIntent.getBroadcast(this.cordova.getActivity(), Integer.parseInt(alarmid), intent, 0);
+				alarmMgr.cancel(alarmIntent);
+				callbackContext.success("Alarm stopped of id: "+alarmid);
+				
+			    return true; 		
+			}
+			
+			return false;	
+					
 		} catch(Exception e) {
 		    System.err.println("Exception: " + e.getMessage());
 		    callbackContext.error(e.getMessage());
