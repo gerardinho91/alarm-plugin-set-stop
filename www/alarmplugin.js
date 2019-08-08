@@ -1,5 +1,5 @@
 var alarm = {
-    set: function(alarmDate,alarmid,message,successCallback, errorCallback) {
+    set: function(alarmDate, successCallback, errorCallback) {
         if(alarmDate < new Date())
     		return;
     	
@@ -8,17 +8,7 @@ var alarm = {
             errorCallback,
             "AlarmPlugin",
             "programAlarm",
-            [alarmDate,alarmid,message]
-        );
-    },
-    stop: function(alarmid, successCallback, errorCallback) {
-        
-        cordova.exec(
-            successCallback,
-            errorCallback,
-            "AlarmPlugin",
-            "stopAlarm",
-            [alarmid]
+            [alarmDate]
         );
     }
 };
