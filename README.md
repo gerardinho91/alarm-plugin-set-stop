@@ -10,10 +10,10 @@ To invoke the plugin:
 
 var newDate = new Date();
 newDate.setSeconds(newDate.getSeconds() + 60);
-var newId = 3;
+ 
 				  
 	//start
-     navigator.plugins.alarm.set(newDate,newId,"", 
+     navigator.plugins.alarm.set(newDate,  
       function(){
         // SUCCESS
       }, 
@@ -23,7 +23,7 @@ var newId = 3;
  
  
  //stop
-  navigator.plugins.alarm.stop(newId, 
+  navigator.plugins.alarm.stop( 
       function(){
         // SUCCESS
       }, 
