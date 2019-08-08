@@ -1,4 +1,4 @@
-package com.kk.alarmplugin;
+package com.gs91.alarmpluginsetstop;
 
 import android.app.KeyguardManager;
 import android.app.KeyguardManager.KeyguardLock;
